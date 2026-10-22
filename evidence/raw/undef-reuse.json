@@ -1,0 +1,48 @@
+{
+  "caseId": "undef-reuse",
+  "inputSha256": "d6ce0d7f36414a1733f965f0b12025e0727810361fb2b69ea3cdae56da0e8da1",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/undef-reuse.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/undef-reuse.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 14.54,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/undef-reuse.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/undef-reuse.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 17.84,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/undef-reuse.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/undef-reuse.tgt.ll"
+    ],
+    "exitCode": 0,
+    "stdout": "\n----------------------------------------\ndefine i8 @specimen(i8 %x) {\nentry:\n  %p = mul i8 %x, 2\n  ret i8 %p\n}\n=>\ndefine i8 @specimen(i8 %x) {\nentry:\n  %p = add i8 %x, %x\n  ret i8 %p\n}\nTransformation doesn't verify!\n\nERROR: Value mismatch\n\nExample:\ni8 %x = undef\n\nSource:\ni8 %p = #x06 (6)\t[based on undef]\n\nTarget:\ni8 %p = #x01 (1)\nSource value: #x06 (6)\t[based on undef]\nTarget value: #x01 (1)\n\nSummary:\n  0 correct transformations\n  1 incorrect transformations\n  0 failed-to-prove transformations\n  0 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 45.01,
+    "timedOut": false
+  }
+}

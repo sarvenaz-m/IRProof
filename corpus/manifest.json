@@ -1,0 +1,568 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "sdiv-8-2",
+      "title": "Signed division \u00b7 i8 / 2",
+      "category": "signed",
+      "bits": 8,
+      "path": "corpus/original/sdiv-8-2.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A sign-dependent bias preserves rounding toward zero. The expansion freezes an unconstrained operand once before reusing it.",
+      "operation": "sdiv",
+      "divisor": 2,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-16-4",
+      "title": "Signed division \u00b7 i16 / 4",
+      "category": "signed",
+      "bits": 16,
+      "path": "corpus/original/sdiv-16-4.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A sign-dependent bias preserves rounding toward zero. The expansion freezes an unconstrained operand once before reusing it.",
+      "operation": "sdiv",
+      "divisor": 4,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-32-8",
+      "title": "Signed division \u00b7 i32 / 8",
+      "category": "signed",
+      "bits": 32,
+      "path": "corpus/original/sdiv-32-8.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A sign-dependent bias preserves rounding toward zero. The expansion freezes an unconstrained operand once before reusing it.",
+      "operation": "sdiv",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-64-16",
+      "title": "Signed division \u00b7 i64 / 16",
+      "category": "signed",
+      "bits": 64,
+      "path": "corpus/original/sdiv-64-16.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A sign-dependent bias preserves rounding toward zero. The expansion freezes an unconstrained operand once before reusing it.",
+      "operation": "sdiv",
+      "divisor": 16,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-128-64",
+      "title": "Signed division \u00b7 i128 / 64",
+      "category": "signed",
+      "bits": 128,
+      "path": "corpus/original/sdiv-128-64.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A sign-dependent bias preserves rounding toward zero. The expansion freezes an unconstrained operand once before reusing it.",
+      "operation": "sdiv",
+      "divisor": 64,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-defined",
+      "title": "Defined input, smaller expansion",
+      "category": "signed",
+      "bits": 32,
+      "path": "corpus/original/sdiv-defined.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "The noundef parameter makes a freeze unnecessary; the rounding correction is still required for negative inputs.",
+      "operation": "sdiv",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-exact",
+      "title": "Exact division keeps its contract",
+      "category": "signed",
+      "bits": 32,
+      "path": "corpus/original/sdiv-exact.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Exact division requires discarded bits to be zero. An exact arithmetic shift carries the same restriction.",
+      "operation": "sdiv",
+      "divisor": 4,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "sdiv-known-nonnegative",
+      "title": "Known bits remove the correction",
+      "category": "signed",
+      "bits": 32,
+      "path": "corpus/original/sdiv-known-nonnegative.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "ValueTracking proves the dividend nonnegative from its sign mask, allowing one logical shift.",
+      "operation": "sdiv",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "udiv-8",
+      "title": "Unsigned division \u00b7 i8",
+      "category": "unsigned",
+      "bits": 8,
+      "path": "corpus/original/udiv-8.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Unsigned division by a power of two is a logical right shift, including a divisor with its high bit set.",
+      "operation": "udiv",
+      "divisor": "8",
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "udiv-32",
+      "title": "Unsigned division \u00b7 i32",
+      "category": "unsigned",
+      "bits": 32,
+      "path": "corpus/original/udiv-32.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Unsigned division by a power of two is a logical right shift, including a divisor with its high bit set.",
+      "operation": "udiv",
+      "divisor": "16",
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "udiv-64",
+      "title": "Unsigned division \u00b7 i64",
+      "category": "unsigned",
+      "bits": 64,
+      "path": "corpus/original/udiv-64.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Unsigned division by a power of two is a logical right shift, including a divisor with its high bit set.",
+      "operation": "udiv",
+      "divisor": "9223372036854775808",
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "udiv-exact",
+      "title": "Exact unsigned division",
+      "category": "unsigned",
+      "bits": 32,
+      "path": "corpus/original/udiv-exact.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "The exact flag is transferred to lshr so the target does not silently lose the division contract.",
+      "operation": "udiv",
+      "divisor": 16,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "urem-8",
+      "title": "Remainder as a bit mask \u00b7 i8",
+      "category": "unsigned",
+      "bits": 8,
+      "path": "corpus/original/urem-8.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A mask retains exactly the low bits of an unsigned remainder by a power of two.",
+      "operation": "urem",
+      "divisor": 16,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "urem-32",
+      "title": "Remainder as a bit mask \u00b7 i32",
+      "category": "unsigned",
+      "bits": 32,
+      "path": "corpus/original/urem-32.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "A mask retains exactly the low bits of an unsigned remainder by a power of two.",
+      "operation": "urem",
+      "divisor": 64,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "mul-wrap",
+      "title": "Multiply by eight \u00b7 modular",
+      "category": "overflow",
+      "bits": 32,
+      "path": "corpus/original/mul-wrap.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Multiplication by a positive power of two becomes shl. Existing overflow flags are preserved; new flags are never invented.",
+      "operation": "mul",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "mul-nsw",
+      "title": "Multiply by eight \u00b7 nsw",
+      "category": "overflow",
+      "bits": 32,
+      "path": "corpus/original/mul-nsw.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Multiplication by a positive power of two becomes shl. Existing overflow flags are preserved; new flags are never invented.",
+      "operation": "mul",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "mul-nuw",
+      "title": "Multiply by eight \u00b7 nuw",
+      "category": "overflow",
+      "bits": 32,
+      "path": "corpus/original/mul-nuw.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Multiplication by a positive power of two becomes shl. Existing overflow flags are preserved; new flags are never invented.",
+      "operation": "mul",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "mul-both",
+      "title": "Multiply by eight \u00b7 nuw nsw",
+      "category": "overflow",
+      "bits": 32,
+      "path": "corpus/original/mul-both.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Multiplication by a positive power of two becomes shl. Existing overflow flags are preserved; new flags are never invented.",
+      "operation": "mul",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "mul-signbit-guard",
+      "title": "Sign-bit multiplier stays unchanged",
+      "category": "overflow",
+      "bits": 8,
+      "path": "corpus/original/mul-signbit-guard.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "The sign-bit constant is a negative signed multiplier. The pass deliberately leaves this case untouched because shl nsw has a different overflow domain.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "neutral-elements",
+      "title": "Remove neutral operations",
+      "category": "semantics",
+      "bits": 32,
+      "path": "corpus/original/neutral-elements.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "Three neutral operations disappear. The original SSA operand remains the result.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "signed-minus-three",
+      "title": "The -3 / 2 counterexample",
+      "category": "signed",
+      "bits": 32,
+      "path": "corpus/original/signed-minus-three.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "Signed division returns -1; an arithmetic right shift returns -2. Replacing the former with the latter changes the result.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "signed-naive-shift",
+      "title": "A shift loses signed rounding",
+      "category": "signed",
+      "bits": 32,
+      "path": "corpus/original/signed-naive-shift.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "Negative odd dividends expose the missing rounding correction.",
+      "operation": "sdiv",
+      "divisor": 2,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "signed-remainder-mask",
+      "title": "Signed remainder is not a mask",
+      "category": "signed",
+      "bits": 8,
+      "path": "corpus/original/signed-remainder-mask.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "A negative signed remainder cannot be represented by an unsigned low-bit mask.",
+      "operation": "srem",
+      "divisor": 8,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "introduced-overflow",
+      "title": "An invented nsw flag changes behavior",
+      "category": "overflow",
+      "bits": 8,
+      "path": "corpus/original/introduced-overflow.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "Modular multiplication is defined for overflowing inputs. Adding nsw makes some of those inputs poison.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "introduced-exact",
+      "title": "An invented exact flag rejects inputs",
+      "category": "overflow",
+      "bits": 32,
+      "path": "corpus/original/introduced-exact.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "A logical shift marked exact is poison when any discarded bit is nonzero. The source imposes no such restriction.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "signbit-nsw-mismatch",
+      "title": "A negative multiplier changes nsw",
+      "category": "overflow",
+      "bits": 8,
+      "path": "corpus/original/signbit-nsw-mismatch.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "For x = 1, multiplying by -128 is representable, but shifting 1 left by seven with nsw is poison. The pass excludes this rewrite.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "undef-reuse",
+      "title": "Duplicating undef changes multiplication",
+      "category": "semantics",
+      "bits": 8,
+      "path": "corpus/original/undef-reuse.ll",
+      "mode": "pair",
+      "expected": "refuted",
+      "explanation": "Multiplication by two always has a zero low bit. Independent undef choices in two add operands can produce an odd result. A freeze would couple those choices.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "atomic-boundary",
+      "title": "Atomic memory reaches a model boundary",
+      "category": "limits",
+      "bits": 32,
+      "path": "corpus/original/atomic-boundary.ll",
+      "mode": "pair",
+      "expected": "unknown",
+      "explanation": "This case probes the validator's support for atomic memory. Unsupported semantics must remain unknown rather than count as a proof.",
+      "operation": "",
+      "divisor": null,
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "frontend-divide",
+      "title": "IRBuilder emits a signed divide",
+      "category": "frontend",
+      "bits": 32,
+      "path": "corpus/generated/divide.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "The source is emitted by the C++ frontend and its exact pass output is checked.",
+      "origin": {
+        "kind": "generated",
+        "name": "IRProof C++ IRBuilder frontend"
+      }
+    },
+    {
+      "id": "frontend-diamond",
+      "title": "Branch facts guide the rewrite",
+      "category": "frontend",
+      "bits": 32,
+      "path": "corpus/generated/diamond.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "The noundef input and dominating comparison justify a logical shift in the nonnegative arm. The negative arm keeps the correction.",
+      "origin": {
+        "kind": "generated",
+        "name": "IRProof C++ IRBuilder frontend"
+      }
+    },
+    {
+      "id": "sdiv-unstable-branch",
+      "title": "Branch knowledge needs a defined input",
+      "category": "semantics",
+      "bits": 32,
+      "path": "corpus/original/sdiv-unstable-branch.ll",
+      "mode": "pass",
+      "expected": "proved",
+      "explanation": "An unconstrained input cannot safely borrow sign information from a separate use in a branch. Both divisions retain stable bias expansions.",
+      "origin": {
+        "kind": "original",
+        "name": "IRProof regression corpus"
+      }
+    },
+    {
+      "id": "upstream-freeze-undef",
+      "title": "A frozen choice cannot become undef",
+      "path": "corpus/upstream/upstream-freeze-undef.ll",
+      "upstreamPath": "tests/alive-tv/freeze-undef.srctgt.ll",
+      "expected": "refuted",
+      "explanation": "The upstream regression distinguishes one stable arbitrary choice from a return that remains undefined.",
+      "sha256": "5b8ad99f8a1b2a21871e4c9119f491b8cd3ef499bd95fbe3a5e344351a3b016f",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/freeze-undef.srctgt.ll",
+      "mode": "pair",
+      "category": "semantics",
+      "bits": 32,
+      "origin": {
+        "kind": "upstream",
+        "name": "Alive2",
+        "revision": "c9af7dbb503878554aefafddba5889ccab237503"
+      }
+    },
+    {
+      "id": "upstream-overflow-intrinsic",
+      "title": "Overflow intrinsic identity",
+      "path": "corpus/upstream/upstream-overflow-intrinsic.ll",
+      "upstreamPath": "tests/alive-tv/umul_overflow.srctgt.ll",
+      "expected": "proved",
+      "explanation": "An unchanged overflow intrinsic exercises translation and refinement without a rewrite.",
+      "sha256": "ed8c138582ad82a013632f62fd2dbe0a845fe9959ad1abae0c896ddb7118eec0",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/umul_overflow.srctgt.ll",
+      "mode": "pair",
+      "category": "semantics",
+      "bits": 32,
+      "origin": {
+        "kind": "upstream",
+        "name": "Alive2",
+        "revision": "c9af7dbb503878554aefafddba5889ccab237503"
+      }
+    },
+    {
+      "id": "upstream-poison-refinement",
+      "title": "Refining a poison result",
+      "path": "corpus/upstream/upstream-poison-refinement.ll",
+      "upstreamPath": "tests/alive-tv/undef/poison.srctgt.ll",
+      "expected": "proved",
+      "explanation": "A less poisonous target can refine a poison source. Refinement is directional.",
+      "sha256": "b755a8e12cfd0a8ae51c968ffdf97ac156f9fba4f30fa4bc76715c98130ca20c",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/undef/poison.srctgt.ll",
+      "mode": "pair",
+      "category": "semantics",
+      "bits": 32,
+      "origin": {
+        "kind": "upstream",
+        "name": "Alive2",
+        "revision": "c9af7dbb503878554aefafddba5889ccab237503"
+      }
+    },
+    {
+      "id": "upstream-poison-rejected",
+      "title": "Introducing poison is rejected",
+      "path": "corpus/upstream/upstream-poison-rejected.ll",
+      "upstreamPath": "tests/alive-tv/undef/poison-fail.srctgt.ll",
+      "expected": "refuted",
+      "explanation": "The opposite direction introduces poison for source-defined behaviors and must be rejected.",
+      "sha256": "0bf37c8e97b1b3d70f04ff1510f45e510af3ce85947830bec31af7ab3e7fead2",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/undef/poison-fail.srctgt.ll",
+      "mode": "pair",
+      "category": "semantics",
+      "bits": 32,
+      "origin": {
+        "kind": "upstream",
+        "name": "Alive2",
+        "revision": "c9af7dbb503878554aefafddba5889ccab237503"
+      }
+    }
+  ]
+}

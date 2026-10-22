@@ -1,0 +1,194 @@
+{
+  "functions": [
+    {
+      "blocks": [
+        {
+          "id": "b0",
+          "immediateDominator": "",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b0.i0",
+              "opcode": "br",
+              "text": "  br label %loop.header",
+              "uses": 0
+            }
+          ],
+          "label": "%entry",
+          "loopDepth": 0,
+          "reachable": true
+        },
+        {
+          "id": "b1",
+          "immediateDominator": "b0",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b1.i0",
+              "opcode": "phi",
+              "text": "  %i = phi i32 [ 0, %entry ], [ %next.i, %loop.body ]",
+              "uses": 3
+            },
+            {
+              "flags": [],
+              "id": "b1.i1",
+              "opcode": "phi",
+              "text": "  %sum = phi i32 [ 0, %entry ], [ %next.sum, %loop.body ]",
+              "uses": 2
+            },
+            {
+              "flags": [],
+              "id": "b1.i2",
+              "opcode": "icmp",
+              "text": "  %continue = icmp ult i32 %i, %x",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b1.i3",
+              "opcode": "br",
+              "text": "  br i1 %continue, label %loop.body, label %exit",
+              "uses": 0
+            }
+          ],
+          "label": "%loop.header",
+          "loopDepth": 1,
+          "reachable": true
+        },
+        {
+          "id": "b2",
+          "immediateDominator": "b1",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b2.i0",
+              "opcode": "udiv",
+              "text": "  %term = udiv i32 %i, 8",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b2.i1",
+              "opcode": "add",
+              "text": "  %next.sum = add i32 %sum, %term",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b2.i2",
+              "opcode": "add",
+              "text": "  %next.i = add i32 %i, 1",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b2.i3",
+              "opcode": "br",
+              "text": "  br label %loop.header",
+              "uses": 0
+            }
+          ],
+          "label": "%loop.body",
+          "loopDepth": 1,
+          "reachable": true
+        },
+        {
+          "id": "b3",
+          "immediateDominator": "b1",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b3.i0",
+              "opcode": "ret",
+              "text": "  ret i32 %sum",
+              "uses": 0
+            }
+          ],
+          "label": "%exit",
+          "loopDepth": 0,
+          "reachable": true
+        }
+      ],
+      "cfg": [
+        {
+          "backedge": false,
+          "from": "b0",
+          "label": "",
+          "to": "b1"
+        },
+        {
+          "backedge": false,
+          "from": "b1",
+          "label": "true",
+          "to": "b2"
+        },
+        {
+          "backedge": false,
+          "from": "b1",
+          "label": "false",
+          "to": "b3"
+        },
+        {
+          "backedge": true,
+          "from": "b2",
+          "label": "",
+          "to": "b1"
+        }
+      ],
+      "dataflow": [
+        {
+          "from": "b2.i2",
+          "operand": 1,
+          "to": "b1.i0"
+        },
+        {
+          "from": "b2.i1",
+          "operand": 1,
+          "to": "b1.i1"
+        },
+        {
+          "from": "b1.i0",
+          "operand": 0,
+          "to": "b1.i2"
+        },
+        {
+          "from": "b1.i2",
+          "operand": 0,
+          "to": "b1.i3"
+        },
+        {
+          "from": "b1.i0",
+          "operand": 0,
+          "to": "b2.i0"
+        },
+        {
+          "from": "b1.i1",
+          "operand": 0,
+          "to": "b2.i1"
+        },
+        {
+          "from": "b2.i0",
+          "operand": 1,
+          "to": "b2.i1"
+        },
+        {
+          "from": "b1.i0",
+          "operand": 0,
+          "to": "b2.i2"
+        },
+        {
+          "from": "b1.i1",
+          "operand": 0,
+          "to": "b3.i0"
+        }
+      ],
+      "flaggedInstructions": 0,
+      "instructions": 10,
+      "name": "specimen",
+      "signedDivides": 0
+    }
+  ],
+  "module": "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/loop.ll",
+  "schemaVersion": 1,
+  "sourceSha256": "3a37e959a648915d155f49c184237c280e633e4bfdd38ddf29e39f8b0133aa17"
+}

@@ -1,0 +1,48 @@
+{
+  "caseId": "signed-naive-shift",
+  "inputSha256": "4909d23764dbc7edf3ad1539295a46cc474d271293418c24f77065e16ebcf292",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/signed-naive-shift.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/signed-naive-shift.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 14.71,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/signed-naive-shift.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/signed-naive-shift.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 13.49,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/signed-naive-shift.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/signed-naive-shift.tgt.ll"
+    ],
+    "exitCode": 0,
+    "stdout": "\n----------------------------------------\ndefine i32 @specimen(i32 %x) {\nentry:\n  %q = sdiv i32 %x, 2\n  ret i32 %q\n}\n=>\ndefine i32 @specimen(i32 %x) {\nentry:\n  %q = ashr i32 %x, 1\n  ret i32 %q\n}\nTransformation doesn't verify!\n\nERROR: Value mismatch\n\nExample:\ni32 %x = #xffffffff (4294967295, -1)\n\nSource:\ni32 %q = #x00000000 (0)\n\nTarget:\ni32 %q = #xffffffff (4294967295, -1)\nSource value: #x00000000 (0)\nTarget value: #xffffffff (4294967295, -1)\n\nSummary:\n  0 correct transformations\n  1 incorrect transformations\n  0 failed-to-prove transformations\n  0 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 36.27,
+    "timedOut": false
+  }
+}

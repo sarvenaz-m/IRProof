@@ -1,0 +1,59 @@
+{
+  "validatedAt": "2026-10-21T13:20:36.781Z",
+  "browser": "151.0.7922.34",
+  "palette": "Warm ivory / graphite / muted petrol / clay",
+  "layouts": [
+    {
+      "viewport": 320,
+      "page": 320
+    },
+    {
+      "viewport": 390,
+      "page": 390
+    },
+    {
+      "viewport": 768,
+      "page": 768
+    },
+    {
+      "viewport": 1024,
+      "page": 1024
+    },
+    {
+      "viewport": 1512,
+      "page": 1512
+    }
+  ],
+  "textContrast": {
+    "scope": "Rendered text against computed background, 4.5:1 normal and 3:1 large text; selected verification, refuted, unknown, raw, provenance, graph and notes states.",
+    "verification": {
+      "checked": 292,
+      "failures": []
+    },
+    "refuted": {
+      "checked": 261,
+      "failures": []
+    },
+    "raw": {
+      "checked": 214,
+      "failures": []
+    },
+    "provenance": {
+      "checked": 231,
+      "failures": []
+    },
+    "unknown": {
+      "checked": 158,
+      "failures": []
+    },
+    "graph": {
+      "checked": 46,
+      "failures": []
+    },
+    "notes": {
+      "checked": 54,
+      "failures": []
+    }
+  },
+  "errors": []
+}

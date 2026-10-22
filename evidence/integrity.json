@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "cases": 35,
+  "upstreamFiles": 4,
+  "audits": 3,
+  "errors": [],
+  "scope": "File integrity and record consistency; not an independent solver proof"
+}

@@ -1,0 +1,12 @@
+✔ corrected results agree with integer division for every signed i8 input (2.777924ms)
+✔ negative odd inputs expose the naive arithmetic shift (0.631696ms)
+✔ 128-bit limits remain exact and values outside the signed range are rejected (0.539606ms)
+✔ input rejects fractions and JavaScript-like expressions (0.146332ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.700179

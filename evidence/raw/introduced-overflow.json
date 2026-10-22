@@ -1,0 +1,48 @@
+{
+  "caseId": "introduced-overflow",
+  "inputSha256": "66ebfcbede4e5746b37f7c93bef93822f2e877b7507b00505ab9e077ee6ce4fd",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/introduced-overflow.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-overflow.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 12.31,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/introduced-overflow.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-overflow.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 10.27,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-overflow.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-overflow.tgt.ll"
+    ],
+    "exitCode": 0,
+    "stdout": "\n----------------------------------------\ndefine i8 @specimen(i8 %x) {\nentry:\n  %p = mul i8 %x, 8\n  ret i8 %p\n}\n=>\ndefine i8 @specimen(i8 %x) {\nentry:\n  %p = shl nsw i8 %x, 3\n  ret i8 %p\n}\nTransformation doesn't verify!\n\nERROR: Target is more poisonous than source\n\nExample:\ni8 %x = #x10 (16)\n\nSource:\ni8 %p = #x80 (128, -128)\n\nTarget:\ni8 %p = poison\nSource value: #x80 (128, -128)\nTarget value: poison\n\nSummary:\n  0 correct transformations\n  1 incorrect transformations\n  0 failed-to-prove transformations\n  0 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 21.71,
+    "timedOut": false
+  }
+}

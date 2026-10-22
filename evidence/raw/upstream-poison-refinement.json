@@ -1,0 +1,48 @@
+{
+  "caseId": "upstream-poison-refinement",
+  "inputSha256": "b755a8e12cfd0a8ae51c968ffdf97ac156f9fba4f30fa4bc76715c98130ca20c",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/upstream/upstream-poison-refinement.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-poison-refinement.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 21.16,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/upstream/upstream-poison-refinement.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-poison-refinement.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 14.86,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-poison-refinement.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-poison-refinement.tgt.ll"
+    ],
+    "exitCode": 0,
+    "stdout": "\n----------------------------------------\ndefine i32 @specimen() {\n#0:\n  ret i32 poison\n}\n=>\ndefine i32 @specimen() {\n#0:\n  ret i32 undef\n}\nTransformation seems to be correct!\n\nSummary:\n  1 correct transformations\n  0 incorrect transformations\n  0 failed-to-prove transformations\n  0 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 23.29,
+    "timedOut": false
+  }
+}

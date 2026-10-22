@@ -1,0 +1,32 @@
+name: Compiler and workbench checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: LLVM 23 and build tools
+        run: |
+          curl --fail --silent --show-error https://apt.llvm.org/llvm-snapshot.gpg.key -o /tmp/llvm.asc
+          sudo install -m 0644 /tmp/llvm.asc /etc/apt/trusted.gpg.d/llvm.asc
+          echo 'deb https://apt.llvm.org/noble/ llvm-toolchain-noble-23 main' | sudo tee /etc/apt/sources.list.d/llvm.list
+          sudo apt-get update
+          sudo apt-get install -y llvm-23-dev clang-23 ninja-build cmake re2c libz3-dev zlib1g-dev libzstd-dev
+      - name: Build and exercise the pass
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_DIR="$(llvm-config-23 --cmakedir)"
+          cmake --build build --parallel 2
+          ctest --test-dir build --output-on-failure
+          node --test tests/ui/math.test.mjs
+      - name: Build the pinned validator
+        run: python scripts/bootstrap_alive2.py --llvm-dir "$(llvm-config-23 --cmakedir)" --prefix build-tools --jobs 2
+      - name: Capture a fresh run
+        run: |
+          python scripts/capture_frontend.py --opt /usr/lib/llvm-23/bin/opt
+          python scripts/make_corpus.py
+          python scripts/irproof.py run --opt /usr/lib/llvm-23/bin/opt --alive-tv build-tools/alive2-build/alive-tv --strict
+          python scripts/verify_evidence.py
+          python scripts/export_demo.py

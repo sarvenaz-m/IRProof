@@ -1,0 +1,46 @@
+{
+  "functions": [
+    {
+      "blocks": [
+        {
+          "id": "b0",
+          "immediateDominator": "",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b0.i0",
+              "opcode": "sdiv",
+              "text": "  %quotient = sdiv i32 %x, 8",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b0.i1",
+              "opcode": "ret",
+              "text": "  ret i32 %quotient",
+              "uses": 0
+            }
+          ],
+          "label": "%entry",
+          "loopDepth": 0,
+          "reachable": true
+        }
+      ],
+      "cfg": [],
+      "dataflow": [
+        {
+          "from": "b0.i0",
+          "operand": 0,
+          "to": "b0.i1"
+        }
+      ],
+      "flaggedInstructions": 0,
+      "instructions": 2,
+      "name": "specimen",
+      "signedDivides": 1
+    }
+  ],
+  "module": "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/divide.ll",
+  "schemaVersion": 1,
+  "sourceSha256": "04a9fd560ac5bd55e99859cf5e10b11187e72b518afe224b3dee98f4d05c5be3"
+}

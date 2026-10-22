@@ -1,0 +1,48 @@
+{
+  "caseId": "upstream-overflow-intrinsic",
+  "inputSha256": "ed8c138582ad82a013632f62fd2dbe0a845fe9959ad1abae0c896ddb7118eec0",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/upstream/upstream-overflow-intrinsic.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-overflow-intrinsic.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 16.76,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/upstream/upstream-overflow-intrinsic.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-overflow-intrinsic.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 15.0,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-overflow-intrinsic.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/upstream-overflow-intrinsic.tgt.ll"
+    ],
+    "exitCode": 0,
+    "stdout": "\n----------------------------------------\ndefine void @specimen(i32 %a, i32 %b) {\n#0:\n  %mul = umul_overflow i32 %a, %b\n  ret void\n}\n=>\ndefine void @specimen(i32 %a, i32 %b) {\n#0:\n  %mul = umul_overflow i32 %a, %b\n  ret void\n}\nTransformation seems to be correct! (syntactically equal)\n\nSummary:\n  1 correct transformations\n  0 incorrect transformations\n  0 failed-to-prove transformations\n  0 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 15.08,
+    "timedOut": false
+  }
+}

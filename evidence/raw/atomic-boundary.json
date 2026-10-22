@@ -1,0 +1,48 @@
+{
+  "caseId": "atomic-boundary",
+  "inputSha256": "3a6f3ca2bfe62c5f52ca785a9c4f24957bfde58534aa61425cf37c21fe83c3b4",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/atomic-boundary.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/atomic-boundary.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 16.25,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/atomic-boundary.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/atomic-boundary.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 12.49,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/atomic-boundary.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/atomic-boundary.tgt.ll"
+    ],
+    "exitCode": 1,
+    "stdout": "ERROR: Unsupported instruction:   %old = atomicrmw add ptr %p, i32 1 seq_cst, align 4\nERROR: Could not translate 'specimen' to Alive IR\nSummary:\n  0 correct transformations\n  0 incorrect transformations\n  0 failed-to-prove transformations\n  1 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 14.63,
+    "timedOut": false
+  }
+}

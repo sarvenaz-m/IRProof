@@ -1,0 +1,105 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 64a341d..2d57160 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -48,10 +48,16 @@ if (CYGWIN)
+ endif()
+ 
+ find_package(Git REQUIRED)
++set(ALIVE_VERSION_OVERRIDE "" CACHE STRING "Version label for source archives")
++if (ALIVE_VERSION_OVERRIDE)
++  set(ALIVE_VERSION_COMMAND "${CMAKE_COMMAND}" -E echo "${ALIVE_VERSION_OVERRIDE}")
++else()
++  set(ALIVE_VERSION_COMMAND "${GIT_EXECUTABLE}" describe --tags --dirty --always)
++endif()
+ add_custom_command(
+   OUTPUT "${PROJECT_BINARY_DIR}/version_gen.h.tmp"
+   COMMAND "${CMAKE_COMMAND}" -E echo_append "#define ALIVE_VERSION_MACRO " > "${PROJECT_BINARY_DIR}/version_gen.h.tmp"
+-  COMMAND "${GIT_EXECUTABLE}" describe --tags --dirty --always >> "${PROJECT_BINARY_DIR}/version_gen.h.tmp"
++  COMMAND ${ALIVE_VERSION_COMMAND} >> "${PROJECT_BINARY_DIR}/version_gen.h.tmp"
+   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
+   VERBATIM
+ )
+@@ -173,6 +179,8 @@ endif()
+ if (BUILD_LLVM_UTILS OR BUILD_TV)
+   cmake_policy(SET CMP0075 NEW)
+   find_package(LLVM REQUIRED CONFIG)
++  # Use one Z3 runtime; avoid an LLVM shared-library dependency on another Z3.
++  set(LLVM_LINK_LLVM_DYLIB OFF)
+ 
+   message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
+   message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+diff --git a/llvm_util/known_fns.cpp b/llvm_util/known_fns.cpp
+index e94bf97..8e1f1ed 100644
+--- a/llvm_util/known_fns.cpp
++++ b/llvm_util/known_fns.cpp
+@@ -506,8 +506,8 @@ namespace llvm_util {
+ bool llvm_implict_attrs(llvm::Function &f, const llvm::TargetLibraryInfo &TLI,
+                         FnAttrs &attrs, vector<ParamAttrs> &param_attrs,
+                         const vector<Value*> &args) {
+-  llvm::LibFunc libfn = TLI.getLibFunc(f);
+-  if (!TLI.has(libfn))
++  llvm::LibFunc libfn;
++  if (!TLI.getLibFunc(f, libfn) || !TLI.has(libfn))
+     return false;
+   return implict_attrs_(libfn, attrs, param_attrs,
+                         f.getReturnType()->isVoidTy(), args);
+@@ -533,8 +533,8 @@ known_call(llvm::CallInst &i, const llvm::TargetLibraryInfo &TLI,
+   if (!decl)
+     RETURN_EXACT();
+ 
+-  llvm::LibFunc libfn = TLI.getLibFunc(*decl);
+-  if (libfn == llvm::NotLibFunc)
++  llvm::LibFunc libfn;
++  if (!TLI.getLibFunc(*decl, libfn))
+     RETURN_EXACT();
+ 
+   auto tci = parse_fn_tailcall(i);
+diff --git a/llvm_util/llvm2alive.cpp b/llvm_util/llvm2alive.cpp
+index 8743df0..1497761 100644
+--- a/llvm_util/llvm2alive.cpp
++++ b/llvm_util/llvm2alive.cpp
+@@ -851,9 +851,7 @@ public:
+     case llvm::Intrinsic::scmp:
+     case llvm::Intrinsic::clmul:
+     case llvm::Intrinsic::pext:
+-    case llvm::Intrinsic::pdep:
+-    case llvm::Intrinsic::umulh:
+-    case llvm::Intrinsic::smulh: {
++    case llvm::Intrinsic::pdep: {
+       PARSE_BINOP();
+       addNoundefAssumes(i, {a, b});
+       BinOp::Op op;
+@@ -882,8 +880,6 @@ public:
+       case llvm::Intrinsic::clmul:    op = BinOp::Clmul; break;
+       case llvm::Intrinsic::pext:     op = BinOp::PExt; break;
+       case llvm::Intrinsic::pdep:     op = BinOp::PDep; break;
+-      case llvm::Intrinsic::umulh:    op = BinOp::UMulH; break;
+-      case llvm::Intrinsic::smulh:    op = BinOp::SMulH; break;
+       default: UNREACHABLE();
+       }
+       ret = make_unique<BinOp>(*ty, value_name(i), *a, *b, op);
+@@ -1734,10 +1730,6 @@ public:
+         attrs.set(ParamAttrs::NoFree);
+         break;
+ 
+-      case llvm::Attribute::NoFreeObj:
+-        attrs.set(ParamAttrs::NoFreeObj);
+-        break;
+-
+       default:
+         // If it is call site, it should be added at approximation list
+         if (!is_callsite)
+diff --git a/llvm_util/llvm_optimizer.cpp b/llvm_util/llvm_optimizer.cpp
+index be20e51..807533c 100644
+--- a/llvm_util/llvm_optimizer.cpp
++++ b/llvm_util/llvm_optimizer.cpp
+@@ -30,7 +30,7 @@ string optimize_module(llvm::Module &M, string_view optArgs) {
+   unique_ptr<llvm::TargetMachine> TM;
+   if (ModuleTriple.getArch()) {
+     auto ETM = codegen::createTargetMachineForTriple(
+-        M.getContext().getLibraryOptions(), ModuleTriple);
++        ModuleTriple);
+     if (auto E = ETM.takeError())
+       return toString(std::move(E));
+     TM = std::move(*ETM);

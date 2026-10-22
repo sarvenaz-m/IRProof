@@ -1,0 +1,155 @@
+{
+  "functions": [
+    {
+      "blocks": [
+        {
+          "id": "b0",
+          "immediateDominator": "",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b0.i0",
+              "opcode": "icmp",
+              "text": "  %nonneg = icmp sge i32 %x, 0",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b0.i1",
+              "opcode": "br",
+              "text": "  br i1 %nonneg, label %nonnegative, label %negative",
+              "uses": 0
+            }
+          ],
+          "label": "%entry",
+          "loopDepth": 0,
+          "reachable": true
+        },
+        {
+          "id": "b1",
+          "immediateDominator": "b0",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b1.i0",
+              "opcode": "sdiv",
+              "text": "  %positive.q = sdiv i32 %x, 8",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b1.i1",
+              "opcode": "br",
+              "text": "  br label %merge",
+              "uses": 0
+            }
+          ],
+          "label": "%nonnegative",
+          "loopDepth": 0,
+          "reachable": true
+        },
+        {
+          "id": "b2",
+          "immediateDominator": "b0",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b2.i0",
+              "opcode": "sdiv",
+              "text": "  %negative.q = sdiv i32 %x, 8",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b2.i1",
+              "opcode": "br",
+              "text": "  br label %merge",
+              "uses": 0
+            }
+          ],
+          "label": "%negative",
+          "loopDepth": 0,
+          "reachable": true
+        },
+        {
+          "id": "b3",
+          "immediateDominator": "b0",
+          "instructions": [
+            {
+              "flags": [],
+              "id": "b3.i0",
+              "opcode": "phi",
+              "text": "  %quotient = phi i32 [ %positive.q, %nonnegative ], [ %negative.q, %negative ]",
+              "uses": 1
+            },
+            {
+              "flags": [],
+              "id": "b3.i1",
+              "opcode": "ret",
+              "text": "  ret i32 %quotient",
+              "uses": 0
+            }
+          ],
+          "label": "%merge",
+          "loopDepth": 0,
+          "reachable": true
+        }
+      ],
+      "cfg": [
+        {
+          "backedge": false,
+          "from": "b0",
+          "label": "true",
+          "to": "b1"
+        },
+        {
+          "backedge": false,
+          "from": "b0",
+          "label": "false",
+          "to": "b2"
+        },
+        {
+          "backedge": false,
+          "from": "b1",
+          "label": "",
+          "to": "b3"
+        },
+        {
+          "backedge": false,
+          "from": "b2",
+          "label": "",
+          "to": "b3"
+        }
+      ],
+      "dataflow": [
+        {
+          "from": "b0.i0",
+          "operand": 0,
+          "to": "b0.i1"
+        },
+        {
+          "from": "b1.i0",
+          "operand": 0,
+          "to": "b3.i0"
+        },
+        {
+          "from": "b2.i0",
+          "operand": 1,
+          "to": "b3.i0"
+        },
+        {
+          "from": "b3.i0",
+          "operand": 0,
+          "to": "b3.i1"
+        }
+      ],
+      "flaggedInstructions": 0,
+      "instructions": 8,
+      "name": "specimen",
+      "signedDivides": 2
+    }
+  ],
+  "module": "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/diamond.ll",
+  "schemaVersion": 1,
+  "sourceSha256": "dda76c2e21bce2b8ef44ed9b1248865332730b687ca54fa5d15e6f24112277f1"
+}

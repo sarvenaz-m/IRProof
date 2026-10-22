@@ -1,0 +1,104 @@
+[
+  {
+    "scenario": "divide",
+    "generation": {
+      "command": [
+        "build/irproof-gen",
+        "--scenario=divide",
+        "--width=32",
+        "--divisor=8",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/divide.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 3.55,
+      "timedOut": false
+    },
+    "analysis": {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/opt",
+        "-load-pass-plugin",
+        "build/IRProofPass.so",
+        "-passes=irproof-audit",
+        "-disable-output",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/divide.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"functions\": [\n    {\n      \"blocks\": [\n        {\n          \"id\": \"b0\",\n          \"immediateDominator\": \"\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b0.i0\",\n              \"opcode\": \"sdiv\",\n              \"text\": \"  %quotient = sdiv i32 %x, 8\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b0.i1\",\n              \"opcode\": \"ret\",\n              \"text\": \"  ret i32 %quotient\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%entry\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        }\n      ],\n      \"cfg\": [],\n      \"dataflow\": [\n        {\n          \"from\": \"b0.i0\",\n          \"operand\": 0,\n          \"to\": \"b0.i1\"\n        }\n      ],\n      \"flaggedInstructions\": 0,\n      \"instructions\": 2,\n      \"name\": \"specimen\",\n      \"signedDivides\": 1\n    }\n  ],\n  \"module\": \"/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/divide.ll\",\n  \"schemaVersion\": 1\n}\n",
+      "stderr": "",
+      "durationMs": 31.38,
+      "timedOut": false
+    },
+    "sourceSha256": "04a9fd560ac5bd55e99859cf5e10b11187e72b518afe224b3dee98f4d05c5be3"
+  },
+  {
+    "scenario": "diamond",
+    "generation": {
+      "command": [
+        "build/irproof-gen",
+        "--scenario=diamond",
+        "--width=32",
+        "--divisor=8",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/diamond.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 3.4,
+      "timedOut": false
+    },
+    "analysis": {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/opt",
+        "-load-pass-plugin",
+        "build/IRProofPass.so",
+        "-passes=irproof-audit",
+        "-disable-output",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/diamond.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"functions\": [\n    {\n      \"blocks\": [\n        {\n          \"id\": \"b0\",\n          \"immediateDominator\": \"\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b0.i0\",\n              \"opcode\": \"icmp\",\n              \"text\": \"  %nonneg = icmp sge i32 %x, 0\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b0.i1\",\n              \"opcode\": \"br\",\n              \"text\": \"  br i1 %nonneg, label %nonnegative, label %negative\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%entry\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        },\n        {\n          \"id\": \"b1\",\n          \"immediateDominator\": \"b0\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b1.i0\",\n              \"opcode\": \"sdiv\",\n              \"text\": \"  %positive.q = sdiv i32 %x, 8\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b1.i1\",\n              \"opcode\": \"br\",\n              \"text\": \"  br label %merge\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%nonnegative\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        },\n        {\n          \"id\": \"b2\",\n          \"immediateDominator\": \"b0\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b2.i0\",\n              \"opcode\": \"sdiv\",\n              \"text\": \"  %negative.q = sdiv i32 %x, 8\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b2.i1\",\n              \"opcode\": \"br\",\n              \"text\": \"  br label %merge\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%negative\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        },\n        {\n          \"id\": \"b3\",\n          \"immediateDominator\": \"b0\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b3.i0\",\n              \"opcode\": \"phi\",\n              \"text\": \"  %quotient = phi i32 [ %positive.q, %nonnegative ], [ %negative.q, %negative ]\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b3.i1\",\n              \"opcode\": \"ret\",\n              \"text\": \"  ret i32 %quotient\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%merge\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        }\n      ],\n      \"cfg\": [\n        {\n          \"backedge\": false,\n          \"from\": \"b0\",\n          \"label\": \"true\",\n          \"to\": \"b1\"\n        },\n        {\n          \"backedge\": false,\n          \"from\": \"b0\",\n          \"label\": \"false\",\n          \"to\": \"b2\"\n        },\n        {\n          \"backedge\": false,\n          \"from\": \"b1\",\n          \"label\": \"\",\n          \"to\": \"b3\"\n        },\n        {\n          \"backedge\": false,\n          \"from\": \"b2\",\n          \"label\": \"\",\n          \"to\": \"b3\"\n        }\n      ],\n      \"dataflow\": [\n        {\n          \"from\": \"b0.i0\",\n          \"operand\": 0,\n          \"to\": \"b0.i1\"\n        },\n        {\n          \"from\": \"b1.i0\",\n          \"operand\": 0,\n          \"to\": \"b3.i0\"\n        },\n        {\n          \"from\": \"b2.i0\",\n          \"operand\": 1,\n          \"to\": \"b3.i0\"\n        },\n        {\n          \"from\": \"b3.i0\",\n          \"operand\": 0,\n          \"to\": \"b3.i1\"\n        }\n      ],\n      \"flaggedInstructions\": 0,\n      \"instructions\": 8,\n      \"name\": \"specimen\",\n      \"signedDivides\": 2\n    }\n  ],\n  \"module\": \"/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/diamond.ll\",\n  \"schemaVersion\": 1\n}\n",
+      "stderr": "",
+      "durationMs": 34.25,
+      "timedOut": false
+    },
+    "sourceSha256": "dda76c2e21bce2b8ef44ed9b1248865332730b687ca54fa5d15e6f24112277f1"
+  },
+  {
+    "scenario": "loop",
+    "generation": {
+      "command": [
+        "build/irproof-gen",
+        "--scenario=loop",
+        "--width=32",
+        "--divisor=8",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/loop.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 3.86,
+      "timedOut": false
+    },
+    "analysis": {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/opt",
+        "-load-pass-plugin",
+        "build/IRProofPass.so",
+        "-passes=irproof-audit",
+        "-disable-output",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/loop.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"functions\": [\n    {\n      \"blocks\": [\n        {\n          \"id\": \"b0\",\n          \"immediateDominator\": \"\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b0.i0\",\n              \"opcode\": \"br\",\n              \"text\": \"  br label %loop.header\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%entry\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        },\n        {\n          \"id\": \"b1\",\n          \"immediateDominator\": \"b0\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b1.i0\",\n              \"opcode\": \"phi\",\n              \"text\": \"  %i = phi i32 [ 0, %entry ], [ %next.i, %loop.body ]\",\n              \"uses\": 3\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b1.i1\",\n              \"opcode\": \"phi\",\n              \"text\": \"  %sum = phi i32 [ 0, %entry ], [ %next.sum, %loop.body ]\",\n              \"uses\": 2\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b1.i2\",\n              \"opcode\": \"icmp\",\n              \"text\": \"  %continue = icmp ult i32 %i, %x\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b1.i3\",\n              \"opcode\": \"br\",\n              \"text\": \"  br i1 %continue, label %loop.body, label %exit\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%loop.header\",\n          \"loopDepth\": 1,\n          \"reachable\": true\n        },\n        {\n          \"id\": \"b2\",\n          \"immediateDominator\": \"b1\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b2.i0\",\n              \"opcode\": \"udiv\",\n              \"text\": \"  %term = udiv i32 %i, 8\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b2.i1\",\n              \"opcode\": \"add\",\n              \"text\": \"  %next.sum = add i32 %sum, %term\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b2.i2\",\n              \"opcode\": \"add\",\n              \"text\": \"  %next.i = add i32 %i, 1\",\n              \"uses\": 1\n            },\n            {\n              \"flags\": [],\n              \"id\": \"b2.i3\",\n              \"opcode\": \"br\",\n              \"text\": \"  br label %loop.header\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%loop.body\",\n          \"loopDepth\": 1,\n          \"reachable\": true\n        },\n        {\n          \"id\": \"b3\",\n          \"immediateDominator\": \"b1\",\n          \"instructions\": [\n            {\n              \"flags\": [],\n              \"id\": \"b3.i0\",\n              \"opcode\": \"ret\",\n              \"text\": \"  ret i32 %sum\",\n              \"uses\": 0\n            }\n          ],\n          \"label\": \"%exit\",\n          \"loopDepth\": 0,\n          \"reachable\": true\n        }\n      ],\n      \"cfg\": [\n        {\n          \"backedge\": false,\n          \"from\": \"b0\",\n          \"label\": \"\",\n          \"to\": \"b1\"\n        },\n        {\n          \"backedge\": false,\n          \"from\": \"b1\",\n          \"label\": \"true\",\n          \"to\": \"b2\"\n        },\n        {\n          \"backedge\": false,\n          \"from\": \"b1\",\n          \"label\": \"false\",\n          \"to\": \"b3\"\n        },\n        {\n          \"backedge\": true,\n          \"from\": \"b2\",\n          \"label\": \"\",\n          \"to\": \"b1\"\n        }\n      ],\n      \"dataflow\": [\n        {\n          \"from\": \"b2.i2\",\n          \"operand\": 1,\n          \"to\": \"b1.i0\"\n        },\n        {\n          \"from\": \"b2.i1\",\n          \"operand\": 1,\n          \"to\": \"b1.i1\"\n        },\n        {\n          \"from\": \"b1.i0\",\n          \"operand\": 0,\n          \"to\": \"b1.i2\"\n        },\n        {\n          \"from\": \"b1.i2\",\n          \"operand\": 0,\n          \"to\": \"b1.i3\"\n        },\n        {\n          \"from\": \"b1.i0\",\n          \"operand\": 0,\n          \"to\": \"b2.i0\"\n        },\n        {\n          \"from\": \"b1.i1\",\n          \"operand\": 0,\n          \"to\": \"b2.i1\"\n        },\n        {\n          \"from\": \"b2.i0\",\n          \"operand\": 1,\n          \"to\": \"b2.i1\"\n        },\n        {\n          \"from\": \"b1.i0\",\n          \"operand\": 0,\n          \"to\": \"b2.i2\"\n        },\n        {\n          \"from\": \"b1.i1\",\n          \"operand\": 0,\n          \"to\": \"b3.i0\"\n        }\n      ],\n      \"flaggedInstructions\": 0,\n      \"instructions\": 10,\n      \"name\": \"specimen\",\n      \"signedDivides\": 0\n    }\n  ],\n  \"module\": \"/workspace/scratch/55cc38c50f2f/IRProof/corpus/generated/loop.ll\",\n  \"schemaVersion\": 1\n}\n",
+      "stderr": "",
+      "durationMs": 16.54,
+      "timedOut": false
+    },
+    "sourceSha256": "3a37e959a648915d155f49c184237c280e633e4bfdd38ddf29e39f8b0133aa17"
+  }
+]

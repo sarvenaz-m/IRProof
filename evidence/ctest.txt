@@ -1,0 +1,10 @@
+Internal ctest changing into directory: /workspace/scratch/55cc38c50f2f/IRProof/build
+Test project /workspace/scratch/55cc38c50f2f/IRProof/build
+    Start 1: irproof.unit
+1/2 Test #1: irproof.unit .....................   Passed    0.06 sec
+    Start 2: irproof.integration
+2/2 Test #2: irproof.integration ..............   Passed    1.37 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   1.43 sec

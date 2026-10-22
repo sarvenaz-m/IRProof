@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "method": "Fresh build from checksum-verified archive using bootstrap_alive2.py, then full strict corpus run",
+  "cases": 35,
+  "summary": {
+    "proved": 25,
+    "refuted": 9,
+    "unknown": 1,
+    "error": 0,
+    "not_run": 0
+  },
+  "allVerdictsMatchCapture": true,
+  "validatorSha256": "ff4c45b05dc11794b27dda225bb52e8bb4300a17705139cb86d7c894a0195a42",
+  "patchSha256": "87432baac98ed82b8d528c4d0f4a4d6ec5952aa676d4fc5f9e4aea7c910f732d",
+  "scope": "Semantic result reproduction; binary hashes and timings are allowed to differ"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "irproof-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/ui/math.test.mjs",
+    "test:ui": "node tests/ui/smoke.cjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.62.1"
+  }
+}

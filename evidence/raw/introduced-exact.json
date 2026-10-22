@@ -1,0 +1,48 @@
+{
+  "caseId": "introduced-exact",
+  "inputSha256": "803b857e6f21c007c3c8e30233daba9a91fab59f6b5ef0afcbaaffcca7657780",
+  "extraction": [
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=src",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/introduced-exact.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-exact.src.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 12.28,
+      "timedOut": false
+    },
+    {
+      "command": [
+        "/workspace/scratch/55cc38c50f2f/tooling/sysroot/usr/lib/llvm-23/bin/llvm-extract",
+        "--func=tgt",
+        "-S",
+        "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/introduced-exact.ll",
+        "-o",
+        "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-exact.tgt.ll"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "durationMs": 12.75,
+      "timedOut": false
+    }
+  ],
+  "validation": {
+    "command": [
+      "/workspace/scratch/55cc38c50f2f/tooling/alive-build/alive-tv",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-exact.src.ll",
+      "/workspace/scratch/55cc38c50f2f/IRProof/evidence/ir/introduced-exact.tgt.ll"
+    ],
+    "exitCode": 0,
+    "stdout": "\n----------------------------------------\ndefine i32 @specimen(i32 %x) {\nentry:\n  %q = udiv i32 %x, 8\n  ret i32 %q\n}\n=>\ndefine i32 @specimen(i32 %x) {\nentry:\n  %q = lshr exact i32 %x, 3\n  ret i32 %q\n}\nTransformation doesn't verify!\n\nERROR: Target is more poisonous than source\n\nExample:\ni32 %x = #x00000001 (1)\n\nSource:\ni32 %q = #x00000000 (0)\n\nTarget:\ni32 %q = poison\nSource value: #x00000000 (0)\nTarget value: poison\n\nSummary:\n  0 correct transformations\n  1 incorrect transformations\n  0 failed-to-prove transformations\n  0 Alive2 errors\n",
+    "stderr": "",
+    "durationMs": 21.25,
+    "timedOut": false
+  }
+}

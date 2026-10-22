@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "verifiedPlatform": "Ubuntu 24.04 x86_64",
+  "capturedDate": "2026-10-21",
+  "llvm": {
+    "version": "23.1.4",
+    "releaseTag": "llvmorg-23.1.4",
+    "source": "https://github.com/llvm/llvm-project/releases/tag/llvmorg-23.1.4",
+    "packageRevision": "7a941dfb2877",
+    "config": "LLVM 23 development headers, opt, llvm-extract and lli from the same package family"
+  },
+  "alive2": {
+    "revision": "c9af7dbb503878554aefafddba5889ccab237503",
+    "source": "https://github.com/AliveToolkit/alive2",
+    "archiveUrl": "https://codeload.github.com/AliveToolkit/alive2/zip/c9af7dbb503878554aefafddba5889ccab237503",
+    "patch": "patches/alive2-llvm23-compat.patch",
+    "patchSha256": "87432baac98ed82b8d528c4d0f4a4d6ec5952aa676d4fc5f9e4aea7c910f732d",
+    "binarySha256": "b646bfe84f06005f358360469f9cdabfdd7ca4c550c13f31cb4c0204c635811f",
+    "linkage": "LLVM component libraries linked statically; one Z3 5.3.1 runtime",
+    "archiveSha256": "8c05f42d9e641b0067501847c95210535ba34f6642cf62b6ca40fdbf444e0332"
+  },
+  "z3": {
+    "version": "5.3.1",
+    "pythonDistribution": "z3-solver==5.3.1.0",
+    "source": "https://github.com/Z3Prover/z3",
+    "librarySha256": "8369cecb16b2320b196bbc2746dd1328eb8f7c74cb6a8634f8bf343659f1c9c7"
+  },
+  "build": {
+    "language": "C++20",
+    "cmake": "3.28.3",
+    "compiler": "GNU C++ 13.3.0",
+    "re2c": "3.1",
+    "buildType": "Release",
+    "python": "3.12.14",
+    "binaryDistribution": false
+  },
+  "fonts": [
+    {
+      "family": "Work Sans",
+      "license": "SIL OFL 1.1"
+    },
+    {
+      "family": "JetBrains Mono",
+      "license": "SIL OFL 1.1"
+    }
+  ],
+  "notes": [
+    "The Alive2 patch adapts APIs and omits LLVM-24-only IR enum entries absent in LLVM 23. It makes no claim of an upstream-accepted change.",
+    "The Z3 wheel omits z3_version.h. A version-only header was generated from the installed solver version for CMake discovery.",
+    "LLVM CMake import paths were relocated to the local tool prefix; this packaging adjustment is not a change to LLVM source.",
+    "The compatibility patch accepts an explicit version label when building a checksum-verified source archive without git metadata."
+  ]
+}

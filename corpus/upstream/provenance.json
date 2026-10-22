@@ -1,0 +1,47 @@
+{
+  "project": "Alive2",
+  "revision": "c9af7dbb503878554aefafddba5889ccab237503",
+  "license": "MIT",
+  "files": [
+    {
+      "id": "upstream-freeze-undef",
+      "title": "A frozen choice cannot become undef",
+      "path": "corpus/upstream/upstream-freeze-undef.ll",
+      "upstreamPath": "tests/alive-tv/freeze-undef.srctgt.ll",
+      "expected": "refuted",
+      "explanation": "The upstream regression distinguishes one stable arbitrary choice from a return that remains undefined.",
+      "sha256": "5b8ad99f8a1b2a21871e4c9119f491b8cd3ef499bd95fbe3a5e344351a3b016f",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/freeze-undef.srctgt.ll"
+    },
+    {
+      "id": "upstream-overflow-intrinsic",
+      "title": "Overflow intrinsic identity",
+      "path": "corpus/upstream/upstream-overflow-intrinsic.ll",
+      "upstreamPath": "tests/alive-tv/umul_overflow.srctgt.ll",
+      "expected": "proved",
+      "explanation": "An unchanged overflow intrinsic exercises translation and refinement without a rewrite.",
+      "sha256": "ed8c138582ad82a013632f62fd2dbe0a845fe9959ad1abae0c896ddb7118eec0",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/umul_overflow.srctgt.ll"
+    },
+    {
+      "id": "upstream-poison-refinement",
+      "title": "Refining a poison result",
+      "path": "corpus/upstream/upstream-poison-refinement.ll",
+      "upstreamPath": "tests/alive-tv/undef/poison.srctgt.ll",
+      "expected": "proved",
+      "explanation": "A less poisonous target can refine a poison source. Refinement is directional.",
+      "sha256": "b755a8e12cfd0a8ae51c968ffdf97ac156f9fba4f30fa4bc76715c98130ca20c",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/undef/poison.srctgt.ll"
+    },
+    {
+      "id": "upstream-poison-rejected",
+      "title": "Introducing poison is rejected",
+      "path": "corpus/upstream/upstream-poison-rejected.ll",
+      "upstreamPath": "tests/alive-tv/undef/poison-fail.srctgt.ll",
+      "expected": "refuted",
+      "explanation": "The opposite direction introduces poison for source-defined behaviors and must be rejected.",
+      "sha256": "0bf37c8e97b1b3d70f04ff1510f45e510af3ce85947830bec31af7ab3e7fead2",
+      "url": "https://github.com/AliveToolkit/alive2/blob/c9af7dbb503878554aefafddba5889ccab237503/tests/alive-tv/undef/poison-fail.srctgt.ll"
+    }
+  ]
+}

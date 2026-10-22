@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "browser": "156.0.8078.47",
+  "entrypoints": [
+    "index.html",
+    "demo/index.html",
+    "demo/IRProof.html"
+  ],
+  "viewports": [
+    {
+      "width": 1440,
+      "height": 1100
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "cases": 35,
+  "refutedFilter": 9,
+  "checks": [
+    "search",
+    "captured validator output",
+    "provenance",
+    "CFG node selection",
+    "loop backedge",
+    "SSA graph",
+    "128-bit arithmetic input",
+    "JSON download",
+    "keyboard tabs",
+    "mobile navigation",
+    "no horizontal page overflow",
+    "no external requests",
+    "no page errors"
+  ]
+}

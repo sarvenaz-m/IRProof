@@ -1,0 +1,6 @@
+/build*/
+__pycache__/
+*.pyc
+/tmp/
+node_modules/
+.DS_Store

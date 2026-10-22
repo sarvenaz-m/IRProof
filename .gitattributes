@@ -1,0 +1,12 @@
+# Focus language totals on the C++ compiler implementation.
+# Workbench UI, automation, fixtures and captured results are excluded from totals.
+/index.html linguist-generated=true
+/demo/** -linguist-detectable
+/scripts/** -linguist-detectable
+/tests/** -linguist-detectable
+/corpus/** -linguist-detectable
+/evidence/** -linguist-detectable
+/docs/** linguist-documentation=true
+/third_party/** linguist-vendored=true
+
+*.h linguist-language=C++

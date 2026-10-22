@@ -1,0 +1,8 @@
+; ModuleID = '/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/mul-signbit-guard.ll'
+source_filename = "/workspace/scratch/55cc38c50f2f/IRProof/corpus/original/mul-signbit-guard.ll"
+
+define i8 @specimen(i8 %x) {
+entry:
+  %p = mul nsw i8 %x, -128
+  ret i8 %p
+}
